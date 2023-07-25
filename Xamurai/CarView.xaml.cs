@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Xamurai
 {
@@ -25,13 +26,12 @@ namespace Xamurai
 
         private void ToggleCollapse()
         {
-            //if (DeviceInfo.Platform == DevicePlatform.Android)
-            //{
-            //BUG iOS pre7+: doesn't collapse the section, only makes the label invisible
             IsExpanded = !IsExpanded;
-            (BindingContext as Car).IsVisible = IsExpanded;
+            var car = BindingContext as Car;
+            car.IsVisible = IsExpanded;
+            car.IsToggled();
+
             OnPropertyChanged(nameof(IsExpanded));
-            //}
         }
 
         public ICommand ToggleCollapseCommand { get; }

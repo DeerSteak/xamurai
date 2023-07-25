@@ -3,29 +3,55 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamurai"
+			 xmlns:tk="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              x:Name="_carView"
              BackgroundColor="White">
 	<ContentView.Content>
-		<Grid>
+		<Frame Margin="5,15,5,5"
+			       BorderColor="LightGray"
+			       CornerRadius="5"
+			       HasShadow="False">
+			<tk:Expander IsExpanded="True" Command="{Binding ToggleCollapseCommand, Source={x:Reference _carView}}">
+				<tk:Expander.Header>
+					<local:CarCircleView Margin="7,0,0,0"				                     
+				                     HeightRequest="30"
+				                     HorizontalOptions="Start"
+				                     VerticalOptions="Start"
+				                     WidthRequest="30" />
+				</tk:Expander.Header>
+				<tk:Expander.Content>
+					<StackLayout>
+						<Grid x:Name="NotesGrid">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" x:Name="NotesCell" />
+							</Grid.RowDefinitions>
+							<Label HorizontalOptions="End"
+								   Text="{Binding Notes}"
+								   TextColor="Gray" />
+							<Label Grid.Row="1" Text="{Binding Description}" />
+						</Grid>
+					</StackLayout>
+				</tk:Expander.Content>
+			</tk:Expander>
+		</Frame>
+		<!--<Grid>
 			<Frame Margin="5,15,5,5"
 			       BorderColor="LightGray"
 			       CornerRadius="5"
 			       HasShadow="False">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-					<Grid IsVisible="{Binding IsExpanded, Source={x:Reference _carView}}">
+				<StackLayout>
+					<Grid x:Name="NotesGrid">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="*" />
+							<RowDefinition Height="*" x:Name="NotesCell" />
 						</Grid.RowDefinitions>
 						<Label HorizontalOptions="End"
 						       Text="{Binding Notes}"
 						       TextColor="Gray" />
 						<Label Grid.Row="1" Text="{Binding Description}" />
 					</Grid>
-				</Grid>
+				</StackLayout>
 			</Frame>
 			<StackLayout Margin="20,0,0,0"
 			             BackgroundColor="White"
@@ -45,6 +71,6 @@
 			</StackLayout>
 
 
-		</Grid>
+		</Grid>-->
 	</ContentView.Content>
 </ContentView>

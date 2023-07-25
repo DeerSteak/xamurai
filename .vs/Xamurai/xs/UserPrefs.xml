@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{2B646F88-8011-4F07-99AB-47D986C6C215}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Xamurai">
+            <Node name="Xamurai" expanded="True">
+              <Node name="Dojo" expanded="True">
+                <Node name="PagedCollectionPage.xaml" expanded="True" />
+              </Node>
+              <Node name="Experiments" expanded="True">
+                <Node name="FlexLayoutPage.xaml" expanded="True" />
+                <Node name="ListViewPage.xaml" selected="True" />
+              </Node>
+              <Node name="CarCircleView.xaml" expanded="True" />
+              <Node name="CarView.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
+            </Node>
+            <Node name="Xamurai.iOS" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.pixel_3a_-_api_32" />
+  <MonoDevelop.Ide.ItemProperties.Xamurai.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.8231F4D5-22EA-4627-B475-0C889C00C4CA" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.MonoDroid LastDeploySdkVersion="13.2.0.6" />
+  <MonoDevelop.Ide.ItemProperties.Xamurai.Android PreferredExecutionTarget="Android.pixel_3a_-_api_32" />
+</Properties>

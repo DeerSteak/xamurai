@@ -11,19 +11,16 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<ListView Grid.Row="1"
-			          HasUnevenRows="True"
+			<CollectionView Grid.Row="1"
 			          ItemsSource="{Binding Cars}"
 			          SelectionMode="None"
-			          SeparatorVisibility="None">
-				<ListView.ItemTemplate>
+				      ItemSizingStrategy="MeasureAllItems">
+				<CollectionView.ItemTemplate>
 					<DataTemplate>
-						<ViewCell>
-							<local:CarView Padding="0,10,0,0" />
-						</ViewCell>
+						<local:CarView Padding="0,10,0,0" />
 					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>
