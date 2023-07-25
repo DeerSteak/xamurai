@@ -2,7 +2,9 @@
 <ContentView
 	x:Class="Xamurai.CarCircleView"
 	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Xamurai"
+	x:DataType="local:Car">
 	<ContentView.GestureRecognizers>
 		<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
 	</ContentView.GestureRecognizers>

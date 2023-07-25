@@ -6,28 +6,36 @@ using System.ComponentModel;
 
 namespace Xamurai
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CarView : ContentView, INotifyPropertyChanged
-	{
-		public CarView ()
-		{
-			IsExpanded = true;
-			ToggleCollapseCommand = new DelegateCommand(ToggleCollapse);
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CarView : ContentView, INotifyPropertyChanged
+    {
+        public CarView()
+        {
+            IsExpanded = true;
+            BindingContextChanged += CarView_BindingContextChanged;
+            ToggleCollapseCommand = new DelegateCommand(ToggleCollapse);
+            InitializeComponent();
+        }
 
-		private void ToggleCollapse()
-		{
-			//if (DeviceInfo.Platform == DevicePlatform.Android)
-			//{
-				//BUG iOS pre7+: doesn't collapse the section, only makes the label invisible
-				IsExpanded = !IsExpanded;
-				OnPropertyChanged(nameof(IsExpanded));
-			//}
-		}
+        private void CarView_BindingContextChanged(object sender, System.EventArgs e)
+        {
+            IsExpanded = (BindingContext as Car)?.IsVisible ?? true;
+            OnPropertyChanged(nameof(IsExpanded));
+        }
 
-		public ICommand ToggleCollapseCommand { get; }
+        private void ToggleCollapse()
+        {
+            //if (DeviceInfo.Platform == DevicePlatform.Android)
+            //{
+            //BUG iOS pre7+: doesn't collapse the section, only makes the label invisible
+            IsExpanded = !IsExpanded;
+            (BindingContext as Car).IsVisible = IsExpanded;
+            OnPropertyChanged(nameof(IsExpanded));
+            //}
+        }
 
-		public bool IsExpanded { get; set; }
-	}
+        public ICommand ToggleCollapseCommand { get; }
+
+        public bool IsExpanded { get; set; }
+    }
 }

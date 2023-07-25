@@ -2,13 +2,32 @@
 <ContentPage
 	x:Class="Xamurai.PagedCollectionPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Xamurai"
+	x:Name="ThisPage"
+	x:DataType="local:SampleViewModel">
 	<ContentPage.Content>
-		<StackLayout>
-			<Label
-				HorizontalOptions="CenterAndExpand"
-				Text="CHALLENGE #1: Paged Collection View"
-				VerticalOptions="CenterAndExpand" />
-		</StackLayout>
+		<CarouselView
+			ItemsSource="{Binding CarCollectables}"
+			HeightRequest="{Binding ColumnHeight}">
+			<CarouselView.ItemTemplate>
+				<DataTemplate>
+					<FlexLayout
+						x:DataType="local:CarCollectable"						
+						AlignContent="Start"
+						AlignItems="Center"
+						BindableLayout.ItemsSource="{Binding CollectedCars}"
+						Direction="Column"
+						JustifyContent="Start"
+						Wrap="Wrap">
+						<BindableLayout.ItemTemplate>
+							<DataTemplate>
+								<local:CarView WidthRequest="{Binding Source={x:Reference ThisPage}, Path=BindingContext.ColumnWidth}" />
+							</DataTemplate>
+						</BindableLayout.ItemTemplate>
+					</FlexLayout>
+				</DataTemplate>
+			</CarouselView.ItemTemplate>
+		</CarouselView>
 	</ContentPage.Content>
 </ContentPage>

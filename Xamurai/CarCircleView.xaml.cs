@@ -9,36 +9,36 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamurai
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CarCircleView : ContentView
-	{
-		public static BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CarCircleView), null);
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CarCircleView : ContentView
+    {
+        public static BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CarCircleView), null);
 
-		public CarCircleView ()
-		{
-			InitializeComponent ();
-		}
+        public CarCircleView()
+        {
+            InitializeComponent();
+        }
 
-		public ICommand Command
-		{
-			get { return (ICommand)this.GetValue(CommandProperty); }
-			set { this.SetValue(CommandProperty, value); }
-		}
+        public ICommand Command
+        {
+            get { return (ICommand)this.GetValue(CommandProperty); }
+            set { this.SetValue(CommandProperty, value); }
+        }
 
-		protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
-		{
-			var sizeRequest = base.OnMeasure(widthConstraint, heightConstraint);
+        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+        {
+            var sizeRequest = base.OnMeasure(widthConstraint, heightConstraint);
 
-			// automatically create round circle, even when size is changed
-			_borderOuter.CornerRadius = (float)widthConstraint / 2;
-			_borderInner.CornerRadius = (float)widthConstraint / 2;
+            // automatically create round circle, even when size is changed
+            _borderOuter.CornerRadius = (float)widthConstraint / 2;
+            _borderInner.CornerRadius = (float)widthConstraint / 2;
 
-			return sizeRequest;
-		}
+            return sizeRequest;
+        }
 
-		private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
-		{
-			Command?.Execute(null);
-		}
-	}
+        private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+            Command?.Execute(null);
+        }
+    }
 }

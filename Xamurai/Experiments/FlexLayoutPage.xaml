@@ -23,7 +23,6 @@
 										Phone="200"
 										Tablet="400" />
 								</local:CarView.WidthRequest>
-
 							</local:CarView>
 						</DataTemplate>
 					</BindableLayout.ItemTemplate>
