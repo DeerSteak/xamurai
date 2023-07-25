@@ -29,7 +29,7 @@ namespace Xamurai
             IsExpanded = !IsExpanded;
             var car = BindingContext as Car;
             car.IsVisible = IsExpanded;
-            car.IsToggled();
+            car.IsToggled?.Invoke();
 
             OnPropertyChanged(nameof(IsExpanded));
         }

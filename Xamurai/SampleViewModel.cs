@@ -91,6 +91,7 @@ namespace Xamurai
                 collectable.CollectedCars.Add(car);
             }
             collectables.Add(collectable);
+            CarCollectables = null;
             CarCollectables = collectables;
         }
 

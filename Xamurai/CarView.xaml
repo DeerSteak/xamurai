@@ -5,13 +5,14 @@
              xmlns:local="clr-namespace:Xamurai"
 			 xmlns:tk="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              x:Name="_carView"
+			 x:DataType="local:Car"
              BackgroundColor="White">
 	<ContentView.Content>
 		<Frame Margin="5,15,5,5"
 			       BorderColor="LightGray"
 			       CornerRadius="5"
 			       HasShadow="False">
-			<tk:Expander IsExpanded="True" Command="{Binding ToggleCollapseCommand, Source={x:Reference _carView}}">
+			<tk:Expander IsExpanded="{Binding IsVisible}" Command="{Binding ToggleCollapseCommand, Source={x:Reference _carView}}">
 				<tk:Expander.Header>
 					<local:CarCircleView Margin="7,0,0,0"				                     
 				                     HeightRequest="30"

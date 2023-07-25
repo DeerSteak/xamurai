@@ -14,7 +14,8 @@
 			<CollectionView Grid.Row="1"
 			          ItemsSource="{Binding Cars}"
 			          SelectionMode="None"
-				      ItemSizingStrategy="MeasureAllItems">
+				      ItemSizingStrategy="MeasureAllItems"
+					  x:Name="_cv">
 				<CollectionView.ItemTemplate>
 					<DataTemplate>
 						<local:CarView Padding="0,10,0,0" />
