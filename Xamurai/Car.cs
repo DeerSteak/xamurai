@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Prism.Mvvm;
 using Xamarin.Forms;
 
@@ -64,19 +65,26 @@ namespace Xamurai
             set
             {
                 SetProperty(ref _isVisible, value);
-                if (IsToggled != null)
-                    IsToggled();
+                if (WasToggled != null)
+                    WasToggled();
             }
         }
 
         private Action _isToggled;
 
-        public Action IsToggled
+        public Action WasToggled
         {
             get => _isToggled;
             set => SetProperty(ref _isToggled, value);
         }
 
+        private ICommand _longPressCommand;
+
+        public ICommand LongPressCommand
+        {
+            get => _longPressCommand;
+            set => SetProperty(ref _longPressCommand, value);
+        }
     }
 
     public enum CarMake

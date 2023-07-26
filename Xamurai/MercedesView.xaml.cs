@@ -2,14 +2,12 @@
 using System.Windows.Input;
 using Prism.Commands;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Xamurai
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CarView : ContentView, INotifyPropertyChanged
+    public partial class MercedesView : ContentView, INotifyPropertyChanged
     {
-        public CarView()
+        public MercedesView()
         {
             IsExpanded = true;
             BindingContextChanged += CarView_BindingContextChanged;
@@ -38,3 +36,4 @@ namespace Xamurai
         public bool IsExpanded { get; set; }
     }
 }
+

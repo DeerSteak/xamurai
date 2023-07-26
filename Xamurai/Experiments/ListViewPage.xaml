@@ -3,25 +3,62 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamurai"
+			 xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
+			 x:DataType="local:SampleViewModel"
              Title="List View">
-	<ContentPage.Content>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<DataTemplate x:Key="MercedesTemplate">				
+				<SwipeView>
+					<SwipeView.RightItems>
+						<SwipeItem
+							Text="Delete"
+							BackgroundColor="Red"
+							Invoked="SwipeItem_Invoked" />
+					</SwipeView.RightItems>
+					<SwipeView.LeftItems>
+						<SwipeItem
+							Text="Delete"
+							BackgroundColor="Red"
+							Invoked="SwipeItem_Invoked" />
+					</SwipeView.LeftItems>	
+					<local:MercedesView/>					
+				</SwipeView>
+			</DataTemplate>
 
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-			<CollectionView Grid.Row="1"
-			          ItemsSource="{Binding Cars}"
-			          SelectionMode="None"
-				      ItemSizingStrategy="MeasureAllItems"
-					  x:Name="_cv">
-				<CollectionView.ItemTemplate>
-					<DataTemplate>
-						<local:CarView Padding="0,10,0,0" />
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
-			</CollectionView>
-		</Grid>
+			<DataTemplate x:Key="OtherTemplate">
+				<SwipeView>
+					<SwipeView.RightItems>
+						<SwipeItem
+							Text="Delete"
+							BackgroundColor="Red"
+							Invoked="SwipeItem_Invoked" />
+					</SwipeView.RightItems>
+					<SwipeView.LeftItems>
+						<SwipeItem
+							Text="Delete"
+							BackgroundColor="Red"
+							Invoked="SwipeItem_Invoked" />
+					</SwipeView.LeftItems>	
+					<local:CarView />
+				</SwipeView>
+            </DataTemplate>
+
+			<local:CarDataTemplateSelector
+				x:Key="carDataTemplateSelector"
+				MercedesDataTemplate="{StaticResource MercedesTemplate}"
+				OtherDataTemplate="{StaticResource OtherTemplate}"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<ContentPage.Content>
+		<CollectionView
+			ItemsSource="{Binding Cars}"
+			SelectionMode="None"
+			ItemSizingStrategy="MeasureAllItems"
+			ItemsUpdatingScrollMode="KeepItemsInView"
+			x:Name="_cv"
+			ItemTemplate="{StaticResource carDataTemplateSelector}">
+		</CollectionView>
 	</ContentPage.Content>
 </ContentPage>

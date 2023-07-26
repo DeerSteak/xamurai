@@ -17,6 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\OpenSans-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\OpenSans-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\OpenSans-Italic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\OpenSans-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="CarCircleView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -41,6 +47,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\" />
+    <None Remove="Resources\Fonts\" />
+    <None Remove="Resources\Fonts\OpenSans-Bold.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-Italic.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="CarView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -58,5 +72,9 @@
   <ItemGroup>
     <None Include="..\README.md" Link=".Docs\README.md" />
     <None Include=".Docs\Dojo.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Fonts\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:local="clr-namespace:Xamurai"
+    x:Name="_mercedesView"
+	x:DataType="local:Car"	
+    x:Class="Xamurai.MercedesView">
+    <ContentView.Content>
+        <Frame Margin="5,15,5,5"
+			       BorderColor="LightGray"
+			       CornerRadius="5"
+			       HasShadow="False"
+				   tk:TouchEffect.LongPressCommand="{Binding LongPressCommand}"
+				   tk:TouchEffect.LongPressCommandParameter="{Binding .}">
+			<Frame.Background>
+				<LinearGradientBrush EndPoint="1,0">
+					<GradientStop Color="Pink" Offset="0.1"/>
+					<GradientStop Color="LightBlue" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Frame.Background>
+			<tk:Expander IsExpanded="{Binding IsVisible}" Command="{Binding ToggleCollapseCommand, Source={x:Reference _mercedesView}}">
+				<tk:Expander.Header>
+					<local:CarCircleView Margin="7,0,0,0"				                     
+				                     HeightRequest="30"
+				                     HorizontalOptions="Start"
+				                     VerticalOptions="Start"
+				                     WidthRequest="30" />
+				</tk:Expander.Header>
+				<tk:Expander.Content>
+					<StackLayout>
+						<Grid x:Name="NotesGrid">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" x:Name="NotesCell" />
+							</Grid.RowDefinitions>
+							<Label HorizontalOptions="End"
+								   Text="{Binding Notes}"
+								   FontFamily="OpenSansRegular"
+								   TextColor="Gray" />
+							<Label Grid.Row="1" Text="{Binding Description}" FontFamily="OpenSansRegular" />
+						</Grid>
+					</StackLayout>
+				</tk:Expander.Content>
+			</tk:Expander>
+		</Frame>
+    </ContentView.Content>
+</ContentView>

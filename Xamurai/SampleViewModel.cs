@@ -1,7 +1,10 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -13,9 +16,11 @@ namespace Xamurai
         {
             GridSpan = Device.Idiom == TargetIdiom.Phone ? 1 : 2;
             BuildCars();
+            AskRemoveCarCommand = new Command<Car>(AskRemoveCar);
+            LongTouchCommand = new Command(() => Application.Current.MainPage.DisplayAlert("OK!", "OK!", "OK!"));
         }
 
-        //added for PagedCollectionPage
+        //added for PagedCollectionPage challenge #1
         private int _columnWidth;
 
         public int ColumnWidth
@@ -52,7 +57,6 @@ namespace Xamurai
             ColumnHeight = (int)(screenHeight - navBarHeight);
         }
 
-
         private ObservableCollection<CarCollectable> _carCollectables;
 
         public ObservableCollection<CarCollectable> CarCollectables
@@ -74,8 +78,8 @@ namespace Xamurai
 
             foreach (var car in Cars)
             {
-                if (car.IsToggled == null)
-                    car.IsToggled = SetCarCollectables;
+                //TODO: re-flowing the layout is janky on iOS. 
+
                 var split = car.Description.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 var descLines = split.Length;
                 var cardHeight = 50;
@@ -91,7 +95,10 @@ namespace Xamurai
                 collectable.CollectedCars.Add(car);
             }
             collectables.Add(collectable);
+
+            //workaround for Android display blanks on reflow
             CarCollectables = null;
+
             CarCollectables = collectables;
         }
 
@@ -102,8 +109,24 @@ namespace Xamurai
                 CollectedCars = new ObservableCollection<Car>()
             };
         }
+        //end added for PagedCollectionPage challenge #1
 
-        //end added for PagedCollectionPage
+        //added for ListViewPage challenge #2
+        public void RemoveCar(Car carToRemove)
+        {
+            Cars.Remove(carToRemove);
+        }
+
+        public async void AskRemoveCar(Car carToRemove)
+        {
+            var result = await Application.Current.MainPage.DisplayAlert("Delete?", $"Are you sure you want to delete {carToRemove.Name}?", "Delete", "Cancel");
+            if (result)
+                RemoveCar(carToRemove);
+        }
+
+        public ICommand AskRemoveCarCommand;
+        public ICommand LongTouchCommand;
+        //end added for ListViewPage challenge #2
 
         private int _gridSpan;
 
@@ -136,6 +159,13 @@ namespace Xamurai
                 new Car { Abbreviation = "VW", Make=CarMake.VolksWagen, Name = "Polo", Description = "Some description", Color = Color.Purple },
 
             };
+
+            foreach (var car in Cars)
+            {
+                car.LongPressCommand = new Command<Car>(AskRemoveCar);
+                car.IsVisible = true;
+                car.WasToggled = SetCarCollectables;
+            }
         }
 
         private ObservableCollection<Car> _cars;
