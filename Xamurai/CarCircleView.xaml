@@ -5,22 +5,18 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:local="clr-namespace:Xamurai"
 	x:DataType="local:Car">
-	<ContentView.GestureRecognizers>
-		<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-	</ContentView.GestureRecognizers>
-
 	<ContentView.Content>
 		<Frame
 			x:Name="_borderOuter"
 			Padding="1"
 			BackgroundColor="{Binding Color}"
-			BorderColor="{Binding Color}"
+			BorderColor="{Binding Color}"			
 			HasShadow="False">
 			<Frame
 				x:Name="_borderInner"
 				Padding="5"
 				BorderColor="{Binding Color}"
-				HasShadow="False">
+				HasShadow="False">				
 				<Label
 					Margin="1,-1,0,0"
 					FontAttributes="Bold"

@@ -21,7 +21,7 @@
 						JustifyContent="Start"
 						Wrap="Wrap">
 						<BindableLayout.ItemTemplate>
-							<DataTemplate>
+							<DataTemplate x:DataType="local:Car">
 								<local:CarView WidthRequest="{Binding Source={x:Reference ThisPage}, Path=BindingContext.ColumnWidth}" />
 							</DataTemplate>
 						</BindableLayout.ItemTemplate>

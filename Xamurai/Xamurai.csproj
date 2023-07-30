@@ -14,6 +14,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.7" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
+    <PackageReference Include="ContextViewCell" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,8 @@
     <None Remove="Resources\Fonts\OpenSans-BoldItalic.ttf" />
     <None Remove="Resources\Fonts\OpenSans-Italic.ttf" />
     <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+    <None Remove="Converters\" />
+    <None Remove="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="CarView.xaml">
@@ -76,5 +79,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>

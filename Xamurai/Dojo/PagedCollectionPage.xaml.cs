@@ -14,10 +14,6 @@ namespace Xamurai
             var vm = new SampleViewModel();
             BindingContext = vm;
             vm.SetCarCollectables();
-            DeviceDisplay.MainDisplayInfoChanged += (s, e) =>
-            {
-                vm.SetCarCollectables();
-            };
             InitializeComponent();
         }
     }

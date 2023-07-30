@@ -11,20 +11,22 @@
 		<Frame Margin="5,15,5,5"
 			       BorderColor="LightGray"
 			       CornerRadius="5"
-			       HasShadow="False"
-				   tk:TouchEffect.LongPressCommand="{Binding LongPressCommand}"
-				   tk:TouchEffect.LongPressCommandParameter="{Binding .}">
-			<tk:Expander IsExpanded="{Binding IsVisible}" Command="{Binding ToggleCollapseCommand, Source={x:Reference _carView}}">
+			       HasShadow="False">
+			<tk:Expander IsExpanded="{Binding IsVisible}" Tapped="Expander_Tapped">
 				<tk:Expander.Header>
 					<local:CarCircleView Margin="7,0,0,0"				                     
 				                     HeightRequest="30"
 				                     HorizontalOptions="Start"
 				                     VerticalOptions="Start"
-				                     WidthRequest="30" />
+									 Command="{Binding CollapseCommand}"
+				                     WidthRequest="30"/>
 				</tk:Expander.Header>
 				<tk:Expander.Content>
 					<StackLayout>
-						<Grid x:Name="NotesGrid">
+						<Grid
+							x:Name="NotesGrid"
+							tk:TouchEffect.LongPressCommand="{Binding LongPressCommand}"
+							tk:TouchEffect.LongPressCommandParameter="{Binding .}">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="*" x:Name="NotesCell" />
@@ -37,43 +39,6 @@
 					</StackLayout>
 				</tk:Expander.Content>
 			</tk:Expander>
-		</Frame>
-		<!--<Grid>
-			<Frame Margin="5,15,5,5"
-			       BorderColor="LightGray"
-			       CornerRadius="5"
-			       HasShadow="False">
-				<StackLayout>
-					<Grid x:Name="NotesGrid">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="*" x:Name="NotesCell" />
-						</Grid.RowDefinitions>
-						<Label HorizontalOptions="End"
-						       Text="{Binding Notes}"
-						       TextColor="Gray" />
-						<Label Grid.Row="1" Text="{Binding Description}" />
-					</Grid>
-				</StackLayout>
-			</Frame>
-			<StackLayout Margin="20,0,0,0"
-			             BackgroundColor="White"
-			             HorizontalOptions="Start"
-			             Orientation="Horizontal"
-			             VerticalOptions="Start">
-				<local:CarCircleView Margin="7,0,0,0"
-				                     Command="{Binding ToggleCollapseCommand, Source={x:Reference _carView}}"
-				                     HeightRequest="30"
-				                     HorizontalOptions="Start"
-				                     VerticalOptions="Start"
-				                     WidthRequest="30" />
-				<Label Margin="0,0,7,0"
-				       FontAttributes="Bold"
-				       Text="{Binding Name}"
-				       VerticalTextAlignment="Center" />
-			</StackLayout>
-
-
-		</Grid>-->
+		</Frame>		
 	</ContentView.Content>
 </ContentView>

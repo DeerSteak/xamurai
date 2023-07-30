@@ -30,7 +30,7 @@ namespace Xamurai
 
 		private void OpenListView()
 		{
-			Navigation.PushAsync(new ListViewPage());
+            Navigation.PushAsync(new ListViewPage());
 		}
 
 		private void OpenCollectionView()

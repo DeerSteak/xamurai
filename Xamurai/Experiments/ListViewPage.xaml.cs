@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamurai.Interfaces;
 
 namespace Xamurai
 {
@@ -16,7 +12,7 @@ namespace Xamurai
 
         public ListViewPage()
         {
-            BindingContext = new SampleViewModel();
+            BindingContext = new SampleViewModel(true);
             InitializeComponent();
             if (DeviceDisplay.MainDisplayInfo.Height < DeviceDisplay.MainDisplayInfo.Width)
                 _cv.ItemsLayout = LinearItemsLayout.Horizontal;

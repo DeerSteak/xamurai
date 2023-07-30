@@ -1,49 +1,50 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
-	xmlns:local="clr-namespace:Xamurai"
-    x:Name="_mercedesView"
-	x:DataType="local:Car"	
-    x:Class="Xamurai.MercedesView">
+<ContentView x:Class="Xamurai.MercedesView"
+			 xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamurai"
+			 xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
+             x:Name="_carView"
+			 x:DataType="local:Car"
+             BackgroundColor="White">
     <ContentView.Content>
         <Frame Margin="5,15,5,5"
 			       BorderColor="LightGray"
 			       CornerRadius="5"
-			       HasShadow="False"
-				   tk:TouchEffect.LongPressCommand="{Binding LongPressCommand}"
-				   tk:TouchEffect.LongPressCommandParameter="{Binding .}">
-			<Frame.Background>
-				<LinearGradientBrush EndPoint="1,0">
-					<GradientStop Color="Pink" Offset="0.1"/>
-					<GradientStop Color="LightBlue" Offset="1.0"/>
-				</LinearGradientBrush>
-			</Frame.Background>
-			<tk:Expander IsExpanded="{Binding IsVisible}" Command="{Binding ToggleCollapseCommand, Source={x:Reference _mercedesView}}">
+			       HasShadow="False">			
+			<tk:Expander IsExpanded="{Binding IsVisible}" Tapped="Expander_Tapped">
 				<tk:Expander.Header>
 					<local:CarCircleView Margin="7,0,0,0"				                     
 				                     HeightRequest="30"
 				                     HorizontalOptions="Start"
 				                     VerticalOptions="Start"
+									 Command="{Binding CollapseCommand}"
 				                     WidthRequest="30" />
 				</tk:Expander.Header>
 				<tk:Expander.Content>
 					<StackLayout>
-						<Grid x:Name="NotesGrid">
+						<Grid
+							x:Name="NotesGrid"
+							tk:TouchEffect.LongPressCommand="{Binding LongPressCommand}"
+							tk:TouchEffect.LongPressCommandParameter="{Binding .}">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="*" x:Name="NotesCell" />
 							</Grid.RowDefinitions>
 							<Label HorizontalOptions="End"
 								   Text="{Binding Notes}"
-								   FontFamily="OpenSansRegular"
 								   TextColor="Gray" />
-							<Label Grid.Row="1" Text="{Binding Description}" FontFamily="OpenSansRegular" />
+							<Label Grid.Row="1" Text="{Binding Description}" />
 						</Grid>
 					</StackLayout>
 				</tk:Expander.Content>
 			</tk:Expander>
+			<Frame.Background>
+				<LinearGradientBrush EndPoint="1,0">
+					<GradientStop Color="Pink" Offset="0.1"/>
+					<GradientStop Color="LightBlue" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Frame.Background>
 		</Frame>
     </ContentView.Content>
 </ContentView>

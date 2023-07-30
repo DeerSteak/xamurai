@@ -65,17 +65,7 @@ namespace Xamurai
             set
             {
                 SetProperty(ref _isVisible, value);
-                if (WasToggled != null)
-                    WasToggled();
             }
-        }
-
-        private Action _isToggled;
-
-        public Action WasToggled
-        {
-            get => _isToggled;
-            set => SetProperty(ref _isToggled, value);
         }
 
         private ICommand _longPressCommand;
@@ -84,6 +74,14 @@ namespace Xamurai
         {
             get => _longPressCommand;
             set => SetProperty(ref _longPressCommand, value);
+        }
+
+        private ICommand _collapseCommand;
+
+        public ICommand CollapseCommand
+        {
+            get => _collapseCommand;
+            set => SetProperty(ref _collapseCommand, value);
         }
     }
 

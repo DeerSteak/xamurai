@@ -1,10 +1,11 @@
 ﻿using System;
-namespace Xamurai
+namespace Xamurai.Interfaces
 {
     public interface IStatusBarService
     {
         void Hide();
         void Show();
+        double GetHeight();
     }
 }
 

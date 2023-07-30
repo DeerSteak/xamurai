@@ -1,21 +1,26 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamurai.Interfaces;
 
 namespace Xamurai
 {
     public class SampleViewModel : BindableBase
     {
-        public SampleViewModel()
+        private IStatusBarService _statusBarService;
+
+        public SampleViewModel(bool allowDelete = false)
         {
+            _statusBarService = DependencyService.Get<IStatusBarService>();
             GridSpan = Device.Idiom == TargetIdiom.Phone ? 1 : 2;
-            BuildCars();
+            BuildCars(allowDelete);
             AskRemoveCarCommand = new Command<Car>(AskRemoveCar);
             LongTouchCommand = new Command(() => Application.Current.MainPage.DisplayAlert("OK!", "OK!", "OK!"));
         }
@@ -27,6 +32,14 @@ namespace Xamurai
         {
             get => _columnWidth;
             set => SetProperty(ref _columnWidth, value);
+        }
+
+        private int _screenWidth;
+
+        public int ScreenWidth
+        {
+            get => _screenWidth;
+            set => SetProperty(ref _screenWidth, value);
         }
 
         private int _columnHeight;
@@ -41,10 +54,12 @@ namespace Xamurai
         {
             //get screen width in points.
             double screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+            ScreenWidth = (int)screenWidth;
 
             //column is half of screen width but remove 10px on either side
             //for margin; two columns so three total margins
-            ColumnWidth = (int)(screenWidth - 30) / 2;
+            ColumnWidth = (int)(ScreenWidth) / 2;
+
         }
 
         private void SetColumnHeight()
@@ -53,7 +68,7 @@ namespace Xamurai
             double screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
 
             //quick and dirty account for status bar and navigation bar
-            var navBarHeight = DeviceInfo.Platform == DevicePlatform.iOS ? 100 : 50;
+            var navBarHeight = _statusBarService.GetHeight();
             ColumnHeight = (int)(screenHeight - navBarHeight);
         }
 
@@ -65,41 +80,65 @@ namespace Xamurai
             set => SetProperty(ref _carCollectables, value);
         }
 
+        public void SetCarToggle(Car car)
+        {
+            car.IsVisible = !car.IsVisible;
+            SetCarCollectables();
+        }
+
         public void SetCarCollectables()
         {
-            SetColumnHeight();
-            SetColumnWidth();
+            Console.WriteLine("Setting collectable collection");
+            if (_isToggling)
+                return;
 
-            var collectables = new ObservableCollection<CarCollectable>();
+            _isToggling = true;
+            var column = 1;
+
+            var collectables = new List<CarCollectable>();
+            var collectedCars = new List<Car>();
             var collectable = GetNewCollectable();
             var currentHeight = 0;
             var sizeConv = new FontSizeConverter();
-            var textSize = (double)sizeConv.ConvertFromInvariantString("Default") * DeviceDisplay.MainDisplayInfo.Density;
+
+            //font size + spacing; I know this works on iPhone 14 and Pixel 5 for sure. 
+            var textSize = (double)sizeConv.ConvertFromInvariantString("Default") * 2;
 
             foreach (var car in Cars)
             {
-                //TODO: re-flowing the layout is janky on iOS. 
-
                 var split = car.Description.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 var descLines = split.Length;
-                var cardHeight = 50;
+
+                //padding of 5 on top/bottom, padding of 1 on top/bottom, margin of 7 on top == 19
+                var cardHeight = (int)textSize + 19;
                 if (car.IsVisible)
                     cardHeight += (int)(textSize * descLines);
                 currentHeight += cardHeight;
-                if (currentHeight > ColumnHeight * 2)
+                if (currentHeight > ColumnHeight)
                 {
-                    collectables.Add(collectable);
-                    collectable = GetNewCollectable();
+                    if (column == 1)
+                    {
+                        column = 2;
+                    }
+                    else
+                    {
+                        column = 1;
+                        collectable.CollectedCars = new ObservableCollection<Car>(collectedCars);
+                        collectables.Add(collectable);
+
+                        collectedCars = new List<Car>();
+                        collectable = GetNewCollectable();
+                    }
                     currentHeight = cardHeight;
+
                 }
-                collectable.CollectedCars.Add(car);
+                collectedCars.Add(car);
             }
+            collectable.CollectedCars = new ObservableCollection<Car>(collectedCars);
             collectables.Add(collectable);
 
-            //workaround for Android display blanks on reflow
-            CarCollectables = null;
-
-            CarCollectables = collectables;
+            CarCollectables = new ObservableCollection<CarCollectable>(collectables);
+            _isToggling = false;
         }
 
         private CarCollectable GetNewCollectable()
@@ -136,9 +175,12 @@ namespace Xamurai
             set { SetProperty(ref _gridSpan, value); }
         }
 
-        private void BuildCars()
+        private void BuildCars(bool allowDelete = false)
         {
-            Cars = new ObservableCollection<Car>
+            SetColumnHeight();
+            SetColumnWidth();
+
+            var cars = new ObservableCollection<Car>
             {
                 new Car { Abbreviation = "VW", Make=CarMake.VolksWagen, Name = "Polo", Notes = "test car", Description = "Some description", Color = Color.Black },
                 new Car { Abbreviation = "BMW", Make=CarMake.BMW, Name = "X5", Description = string.Concat(Enumerable.Repeat($"Some description {Environment.NewLine}", 10)), Color = Color.Purple },
@@ -157,15 +199,16 @@ namespace Xamurai
                 new Car { Abbreviation = "VW", Make=CarMake.VolksWagen, Name = "Polo", Description = string.Concat(Enumerable.Repeat($"Some description {Environment.NewLine}", 5)), Color = Color.LightCyan },
                 new Car { Abbreviation = "VW", Make=CarMake.VolksWagen, Name = "Polo", Description = "Some description", Color = Color.PaleTurquoise },
                 new Car { Abbreviation = "VW", Make=CarMake.VolksWagen, Name = "Polo", Description = "Some description", Color = Color.Purple },
-
             };
 
-            foreach (var car in Cars)
+            foreach (var car in cars)
             {
-                car.LongPressCommand = new Command<Car>(AskRemoveCar);
-                car.IsVisible = true;
-                car.WasToggled = SetCarCollectables;
+                car.CollapseCommand = new DelegateCommand(SetCarCollectables);
+                if (allowDelete)
+                    car.LongPressCommand = new DelegateCommand<Car>(AskRemoveCar);
             }
+
+            Cars = cars;
         }
 
         private ObservableCollection<Car> _cars;
@@ -175,5 +218,7 @@ namespace Xamurai
             get { return _cars; }
             set { SetProperty(ref _cars, value); }
         }
+
+        private bool _isToggling = false;
     }
 }
