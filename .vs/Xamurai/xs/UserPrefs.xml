@@ -1,40 +1,32 @@
 ﻿<Properties StartupConfiguration="{B27A7460-CA2B-466B-BC3C-5257EE222A98}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Xamurai.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.Generic" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamurai.Android/MainActivity.cs">
-    <Files>
-      <File FileName="Xamurai/Experiments/ListViewPage.xaml" />
-      <File FileName="Xamurai/CarView.xaml" />
-      <File FileName="Xamurai/CarView.xaml.cs" />
-      <File FileName="Xamurai/CarCircleView.xaml.cs" />
-      <File FileName="Xamurai/SampleViewModel.cs" />
-      <File FileName="Xamurai/CarCircleView.xaml" />
-      <File FileName="../../.nuget/packages/xamarin.essentials/1.7.7/readme.txt" />
-      <File FileName="Xamurai/Experiments/ListViewPage.xaml.cs" />
-      <File FileName="Xamurai.iOS/Main.cs" />
-      <File FileName="Xamurai.Android/MainActivity.cs" Line="9" Column="19" />
-    </Files>
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.pixel_5_-_api_33" />
+  <MonoDevelop.Ide.ItemProperties.Xamurai.Android PreferredExecutionTarget="Android.pixel_5_-_api_33" />
+  <MonoDevelop.MonoDroid LastDeploySdkVersion="13.2.0.6" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Xamurai" expanded="True">
-            <Node name="Xamurai" expanded="True">
-              <Node name="Experiments" expanded="True" />
-            </Node>
-            <Node name="Xamurai.Android" expanded="True">
-              <Node name="MainActivity.cs" selected="True" />
+          <Node name="Xamurai">
+            <Node name="Xamurai">
+              <Node name="Experiments">
+                <Node name="ListViewPage.xaml" expanded="True" selected="True" />
+              </Node>
+              <Node name="Interfaces" expanded="True" />
+              <Node name="CarCircleView.xaml" expanded="True" />
+              <Node name="CarView.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
+              <Node name="MercedesView.xaml" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Xamurai.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.00D4F07E-4055-426B-85B1-42E285942F83" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.MonoDroid LastDeploySdkVersion="13.2.0.6" />
-  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.pixel_3a_-_api_32" />
-  <MonoDevelop.Ide.ItemProperties.Xamurai.Android PreferredExecutionTarget="Android.pixel_3a_-_api_32" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

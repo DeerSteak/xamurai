@@ -19,12 +19,6 @@
 									BackgroundColor="Red"
 									Invoked="SwipeItem_Invoked" />
 							</SwipeView.RightItems>
-							<SwipeView.LeftItems>
-								<SwipeItem
-									Text="Delete"
-									BackgroundColor="Red"
-									Invoked="SwipeItem_Invoked" />
-							</SwipeView.LeftItems>	
 							<local:MercedesView/>					
 						</SwipeView>
 					</StackLayout>					
@@ -51,13 +45,7 @@
 									Text="Delete"
 									BackgroundColor="Red"
 									Invoked="SwipeItem_Invoked" />
-							</SwipeView.RightItems>
-							<SwipeView.LeftItems>
-								<SwipeItem
-									Text="Delete"
-									BackgroundColor="Red"
-									Invoked="SwipeItem_Invoked" />
-							</SwipeView.LeftItems>	
+							</SwipeView.RightItems>	
 							<local:CarView/>					
 						</SwipeView>
 					</StackLayout>					
