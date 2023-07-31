@@ -5,11 +5,12 @@
              xmlns:local="clr-namespace:Xamurai"
 			 xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
 			 x:DataType="local:SampleViewModel"
+			 x:Name="ThisPage"
              Title="List View">
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<DataTemplate x:Key="MercedesTemplate">				
-				<SwipeView>
+				<!--<SwipeView>
 					<SwipeView.RightItems>
 						<SwipeItem
 							Text="Delete"
@@ -23,11 +24,19 @@
 							Invoked="SwipeItem_Invoked" />
 					</SwipeView.LeftItems>	
 					<local:MercedesView/>					
-				</SwipeView>
+				</SwipeView>-->
+				<Grid ColumnDefinitions="*, Auto">
+					<local:MercedesView Grid.Column="0" />
+					<Button IsVisible="false" Text="Delete" BackgroundColor="Red" TextColor="White" Grid.Column="1" Clicked="Button_Clicked" />
+					<Grid.GestureRecognizers>
+						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+					</Grid.GestureRecognizers>
+				</Grid>
+
 			</DataTemplate>
 
 			<DataTemplate x:Key="OtherTemplate">
-				<SwipeView>
+				<!--<SwipeView>
 					<SwipeView.RightItems>
 						<SwipeItem
 							Text="Delete"
@@ -41,11 +50,18 @@
 							Invoked="SwipeItem_Invoked" />
 					</SwipeView.LeftItems>	
 					<local:CarView />
-				</SwipeView>
+				</SwipeView>-->
+				<Grid ColumnDefinitions="*, Auto">
+					<local:CarView Grid.Column="0" />
+					<Button IsVisible="false" Text="Delete" BackgroundColor="Red" TextColor="White" Grid.Column="1" Clicked="Button_Clicked" />
+					<Grid.GestureRecognizers>
+						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+					</Grid.GestureRecognizers>
+				</Grid>
             </DataTemplate>
 
 			<local:CarDataTemplateSelector
-				x:Key="carDataTemplateSelector"
+				x:Key="carDataTemplateSelector"				
 				MercedesDataTemplate="{StaticResource MercedesTemplate}"
 				OtherDataTemplate="{StaticResource OtherTemplate}"/>
 		</ResourceDictionary>
@@ -58,6 +74,7 @@
 			ItemSizingStrategy="MeasureAllItems"
 			ItemsUpdatingScrollMode="KeepItemsInView"
 			x:Name="_cv"
+			HorizontalOptions="FillAndExpand"
 			ItemTemplate="{StaticResource carDataTemplateSelector}">
 		</CollectionView>
 	</ContentPage.Content>

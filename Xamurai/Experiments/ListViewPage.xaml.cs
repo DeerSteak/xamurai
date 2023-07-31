@@ -1,4 +1,6 @@
-﻿using Xamarin.Essentials;
+﻿using System;
+using System.Linq;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -14,8 +16,8 @@ namespace Xamurai
 
         public ListViewPage()
         {
-            Xamarin.Forms.Application.Current.On<iOS>().SetPanGestureRecognizerShouldRecognizeSimultaneously(true);
             BindingContext = new SampleViewModel(true);
+            Xamarin.Forms.Application.Current.On<iOS>().SetPanGestureRecognizerShouldRecognizeSimultaneously(true);            
             InitializeComponent();
             if (DeviceDisplay.MainDisplayInfo.Height < DeviceDisplay.MainDisplayInfo.Width)
                 _cv.ItemsLayout = LinearItemsLayout.Horizontal;
@@ -41,13 +43,34 @@ namespace Xamurai
             _cv.ItemsLayout = isPortrait ? LinearItemsLayout.Vertical : LinearItemsLayout.Horizontal;
         }
 
-        void SwipeItem_Invoked(System.Object sender, System.EventArgs e)
+        void Button_Clicked(System.Object sender, System.EventArgs e)
         {
-            if (sender is SwipeItem swipeItem)
+            if (sender is Button button)
             {
-                if (swipeItem.BindingContext is Car car)
+                if (button.BindingContext is Car car)
                 {
                     (BindingContext as SampleViewModel).RemoveCar(car);
+                }
+            }
+        }
+
+        void PanGestureRecognizer_PanUpdated(System.Object sender, Xamarin.Forms.PanUpdatedEventArgs e)
+        {
+            if (sender is Grid grid)
+            {
+                var button = grid.Children.Where(c => c.GetType() == typeof(Button)).FirstOrDefault();
+                if (button != null)
+                {
+                    Console.WriteLine($"x: {e.TotalX}, y: {e.TotalY}");
+
+                    if (e.StatusType == GestureStatus.Running && e.TotalX < 0 && (uint)e.TotalX > (uint)e.TotalY)
+                    {
+                        button.IsVisible = true;
+                    }
+                    else if (e.StatusType == GestureStatus.Running && e.TotalX > 0 && (uint)e.TotalX > (uint)e.TotalY)
+                    {
+                        button.IsVisible = false;
+                    }
                 }
             }
         }
