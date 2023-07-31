@@ -1,5 +1,7 @@
 ﻿using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 using Xamurai.Interfaces;
 
@@ -12,6 +14,7 @@ namespace Xamurai
 
         public ListViewPage()
         {
+            Xamarin.Forms.Application.Current.On<iOS>().SetPanGestureRecognizerShouldRecognizeSimultaneously(true);
             BindingContext = new SampleViewModel(true);
             InitializeComponent();
             if (DeviceDisplay.MainDisplayInfo.Height < DeviceDisplay.MainDisplayInfo.Width)
