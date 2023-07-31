@@ -2,9 +2,9 @@
 using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using Xamarin.Forms.Xaml;
 using Xamurai.Interfaces;
 
 namespace Xamurai
@@ -16,8 +16,9 @@ namespace Xamurai
 
         public ListViewPage()
         {
+            Xamarin.Forms.Application.Current.On<iOS>().SetPanGestureRecognizerShouldRecognizeSimultaneously(true);
+
             BindingContext = new SampleViewModel(true);
-            Xamarin.Forms.Application.Current.On<iOS>().SetPanGestureRecognizerShouldRecognizeSimultaneously(true);            
             InitializeComponent();
             if (DeviceDisplay.MainDisplayInfo.Height < DeviceDisplay.MainDisplayInfo.Width)
                 _cv.ItemsLayout = LinearItemsLayout.Horizontal;
@@ -54,6 +55,17 @@ namespace Xamurai
             }
         }
 
+        void SwipeItem_Invoked(System.Object sender, System.EventArgs e)
+        {
+            if (sender is SwipeItem swipeItem)
+            {
+                if (swipeItem.BindingContext is Car car)
+                {
+                    (BindingContext as SampleViewModel).RemoveCar(car);
+                }
+            }
+        }
+
         void PanGestureRecognizer_PanUpdated(System.Object sender, Xamarin.Forms.PanUpdatedEventArgs e)
         {
             if (sender is Grid grid)
@@ -74,5 +86,7 @@ namespace Xamurai
                 }
             }
         }
+
+        
     }
 }

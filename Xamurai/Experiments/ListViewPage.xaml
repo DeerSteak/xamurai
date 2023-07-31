@@ -9,61 +9,77 @@
              Title="List View">
 	<ContentPage.Resources>
 		<ResourceDictionary>
-			<DataTemplate x:Key="MercedesTemplate">				
-				<!--<SwipeView>
-					<SwipeView.RightItems>
-						<SwipeItem
-							Text="Delete"
-							BackgroundColor="Red"
-							Invoked="SwipeItem_Invoked" />
-					</SwipeView.RightItems>
-					<SwipeView.LeftItems>
-						<SwipeItem
-							Text="Delete"
-							BackgroundColor="Red"
-							Invoked="SwipeItem_Invoked" />
-					</SwipeView.LeftItems>	
-					<local:MercedesView/>					
-				</SwipeView>-->
+			<DataTemplate x:Key="MercedesTemplate">
+				<StackLayout>					
+					<StackLayout>
+						<SwipeView>
+							<SwipeView.RightItems>
+								<SwipeItem
+									Text="Delete"
+									BackgroundColor="Red"
+									Invoked="SwipeItem_Invoked" />
+							</SwipeView.RightItems>
+							<SwipeView.LeftItems>
+								<SwipeItem
+									Text="Delete"
+									BackgroundColor="Red"
+									Invoked="SwipeItem_Invoked" />
+							</SwipeView.LeftItems>	
+							<local:MercedesView/>					
+						</SwipeView>
+					</StackLayout>					
+				</StackLayout>
+			</DataTemplate>
+
+			<DataTemplate x:Key="iOSMercedesTemplate">
 				<Grid ColumnDefinitions="*, Auto">
 					<local:MercedesView Grid.Column="0" />
 					<Button IsVisible="false" Text="Delete" BackgroundColor="Red" TextColor="White" Grid.Column="1" Clicked="Button_Clicked" />
 					<Grid.GestureRecognizers>
-						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"  />
 					</Grid.GestureRecognizers>
 				</Grid>
 
 			</DataTemplate>
 
 			<DataTemplate x:Key="OtherTemplate">
-				<!--<SwipeView>
-					<SwipeView.RightItems>
-						<SwipeItem
-							Text="Delete"
-							BackgroundColor="Red"
-							Invoked="SwipeItem_Invoked" />
-					</SwipeView.RightItems>
-					<SwipeView.LeftItems>
-						<SwipeItem
-							Text="Delete"
-							BackgroundColor="Red"
-							Invoked="SwipeItem_Invoked" />
-					</SwipeView.LeftItems>	
-					<local:CarView />
-				</SwipeView>-->
+				<StackLayout>					
+					<StackLayout>
+						<SwipeView>
+							<SwipeView.RightItems>
+								<SwipeItem
+									Text="Delete"
+									BackgroundColor="Red"
+									Invoked="SwipeItem_Invoked" />
+							</SwipeView.RightItems>
+							<SwipeView.LeftItems>
+								<SwipeItem
+									Text="Delete"
+									BackgroundColor="Red"
+									Invoked="SwipeItem_Invoked" />
+							</SwipeView.LeftItems>	
+							<local:CarView/>					
+						</SwipeView>
+					</StackLayout>					
+				</StackLayout>
+            </DataTemplate>
+
+			<DataTemplate x:Key="iOSOtherTemplate">
 				<Grid ColumnDefinitions="*, Auto">
 					<local:CarView Grid.Column="0" />
 					<Button IsVisible="false" Text="Delete" BackgroundColor="Red" TextColor="White" Grid.Column="1" Clicked="Button_Clicked" />
 					<Grid.GestureRecognizers>
-						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+						<PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"  />
 					</Grid.GestureRecognizers>
 				</Grid>
-            </DataTemplate>
+			</DataTemplate>
 
 			<local:CarDataTemplateSelector
 				x:Key="carDataTemplateSelector"				
 				MercedesDataTemplate="{StaticResource MercedesTemplate}"
-				OtherDataTemplate="{StaticResource OtherTemplate}"/>
+				OtherDataTemplate="{StaticResource OtherTemplate}"
+				iOSMercedesDataTemplate="{StaticResource iOSMercedesTemplate}"
+				iOSOtherDataTemplate="{StaticResource iOSOtherTemplate}"/>
 		</ResourceDictionary>
 	</ContentPage.Resources>
 
